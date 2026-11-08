@@ -1,0 +1,121 @@
+PSEUDOCODE (FIXED): 1-D Closest Pair using Divide and Conquer
+
+
+STRUCTURE Result:
+    first, second      
+    difference         
+    minValue          
+    maxValue           
+
+
+FUNCTION ClosestPair(A, low, high) RETURNS Result
+------------------------------------------------
+    // Base case
+    IF low = high THEN
+        RETURN (first = NONE, second = NONE, difference = INFINITY,
+                minValue = A[low], maxValue = A[low])
+    END IF
+
+    mid <- low + (high - low) / 2           
+
+    // Divide
+    //   A[low..mid]    <=  A[mid]  <=  A[mid+1..high]
+    Select(A, low, high, mid)
+
+    // Conquer
+    left  <- ClosestPair(A, low, mid)
+    right <- ClosestPair(A, mid + 1, high)
+
+    // Combine
+    crossDiff <- right.minValue - left.maxValue
+    cross     <- (first = left.maxValue, second = right.minValue,
+                  difference = crossDiff)
+
+    best <- left
+    IF right.difference < best.difference THEN
+        best <- right
+    END IF
+    IF cross.difference < best.difference THEN
+        best <- cross
+    END IF
+
+    RETURN (first      = best.first,
+            second     = best.second,
+            difference = best.difference,
+            minValue   = MIN(left.minValue, right.minValue),
+            maxValue   = MAX(left.maxValue, right.maxValue))
+END FUNCTION
+
+
+FUNCTION Select(A, low, high, k)           
+-----------------------------------------------
+    WHILE low < high DO
+        p <- Partition(A, low, high)
+        IF k = p THEN
+            RETURN
+        ELSE IF k < p THEN
+            high <- p - 1
+        ELSE
+            low <- p + 1
+        END IF
+    END WHILE
+END FUNCTION
+
+
+FUNCTION Partition(A, low, high) RETURNS pivotIndex
+------------------------------------------------
+    r <- random index in [low, high]
+    SWAP A[r], A[high]
+    pivot <- A[high]
+    i <- low
+    FOR j <- low TO high - 1 DO
+        IF A[j] < pivot THEN
+            SWAP A[i], A[j]
+            i <- i + 1
+        END IF
+    END FOR
+    SWAP A[i], A[high]
+    RETURN i
+END FUNCTION
+
+
+MAIN PROGRAM
+------------------------------------------------
+    READ n                              
+
+    IF n < 2 THEN
+        PRINT "At least two elements are required."
+        EXIT with error
+    END IF
+
+    CREATE array A of size n
+    SEED random generator with a fixed seed (e.g. 54432)
+    FOR i <- 0 TO n - 1 DO
+        A[i] <- random real number in a chosen range
+    END FOR
+
+    answer <- ClosestPair(A, 0, n - 1)
+
+    PRINT "Input size: ", n
+    PRINT "Random seed: 54432"
+    PRINT "Closest pair: ", answer.first, " and ", answer.second
+    PRINT "Minimum difference: ", answer.difference
+
+END
+
+
+ANALYSIS
+------------------------------------------------
+Recurrence:   T(n) = 2T(n/2) + Theta(n)       (Select/Partition is the Theta(n) work)
+Solution:     T(n) = Theta(n log n)
+              (expected time with randomized quickselect; worst case
+              Theta(n log n) if median-of-medians is used for Select)
+Space:        O(log n) recursion stack
+
+Is it a good algorithm?
+    It is in the same efficiency class as the simple "sort, then scan
+    adjacent elements" method, which is easier to write, so it gives no
+    asymptotic gain. It is still optimal in the comparison model:
+    Omega(n log n) is a lower bound for this problem (it generalizes
+    element uniqueness). It is a valid divide-and-conquer design, but
+    sort + scan is the better practical choice.

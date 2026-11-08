@@ -1,0 +1,53 @@
+PSEUDOCODE: Divide-and-Conquer POWER (a^n)
+
+GLOBAL:
+    multiplications <- 0
+
+
+FUNCTION Power(a, n) RETURNS integer        
+------------------------------------------------
+    // Base case
+    IF n = 1 THEN
+        RETURN a
+    END IF
+
+    // Divide + Conquer: solve one half only
+    half <- Power(a, n / 2)                 
+
+    // Combine
+    result <- half * half
+    multiplications <- multiplications + 1
+
+    IF n is odd THEN
+        result <- result * a
+        multiplications <- multiplications + 1
+    END IF
+
+    RETURN result
+END FUNCTION
+
+
+MAIN PROGRAM
+------------------------------------------------
+    READ a                                  
+    READ n                                  
+
+    IF n < 1 THEN
+        PRINT "Exponent must be a positive integer."
+        EXIT with error
+    END IF
+
+    answer <- Power(a, n)
+
+    PRINT "algorithm result: ", answer
+    PRINT "Num of multiplications: ", multiplications
+END
+
+
+ANALYSIS
+------------------------------------------------
+Recurrence:   T(n) = T(n/2) + 1  (or + 2 when n is odd),  T(1) = 0
+Time:         Theta(log n) multiplications
+              exact count = floor(log2 n) + (number of 1-bits in n) - 1
+Space:        O(log n) recursion stack
+Note:         the result is stored in a 64-bit integer, so it overflows for large a^n.

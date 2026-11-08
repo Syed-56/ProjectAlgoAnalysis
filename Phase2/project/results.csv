@@ -1,0 +1,21 @@
+file,input size,result,time_ms,verification
+cp01,1000,distance=1052.432975437,0.145,grid check OK; brute OK
+cp02,10000,distance=97.217604725,1.638,grid check OK; brute OK
+cp03,100000,distance=8.495325520,20.924,grid check OK; brute skipped (n > 20000)
+cp04,1000000,distance=0.587626232,267.319,grid check OK; brute skipped (n > 20000)
+cp05,1000000,distance=0.000021000,240.841,grid check OK; brute skipped (n > 20000)
+cp06,1000000,distance=0.000000000,185.442,grid check OK; brute skipped (n > 20000)
+cp07,100000,distance=0.000060000,16.214,grid check OK; brute skipped (n > 20000)
+cp08,100000,distance=1000.000000000,16.017,grid check OK; brute skipped (n > 20000)
+cp09,1000000,distance=0.001000000,261.548,grid check OK; brute skipped (n > 20000)
+cp10,101,distance=5.642384248,0.013,grid check OK; brute OK
+im01,1000 x 1000 digits,product has 1999 digits,0.038,mod OK; python int OK
+im02,10000 x 10000 digits,product has 19999 digits,1.144,mod OK; python int OK
+im03,100000 x 100000 digits,product has 200000 digits,38.839,mod OK; python int OK
+im04,1000000 x 1000000 digits,product has 2000000 digits,1361.753,mod OK; python int skipped
+im05,1000000 x 10 digits,product has 1000010 digits,1.182,mod OK; python int skipped
+im06,100000 x 100000 digits,product has 200000 digits,39.831,mod OK; python int OK
+im07,99999 x 99999 digits,product has 199998 digits,38.338,mod OK; python int OK
+im08,1000000 x 1000000 digits,product has 1999999 digits,25.800,mod OK; python int skipped
+im09,1 x 1000000 digits,product has 1 digits,0.002,mod OK; python int skipped
+im10,101 x 101 digits,product has 202 digits,0.003,mod OK; python int OK

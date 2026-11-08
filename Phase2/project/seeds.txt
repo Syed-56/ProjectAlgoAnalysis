@@ -1,0 +1,20 @@
+cp01: n=1000, seed=1001
+cp02: n=10000, seed=1002
+cp03: n=100000, seed=1003
+cp04: n=1000000, seed=1004
+cp05: n=1000000, seed=1005
+cp06: n=1000000, seed=1006
+cp07: n=100000, seed=1007
+cp08: n=100000, seed=1008
+cp09: n=1000000, seed=1009
+cp10: n=101, seed=1010
+im01: digits=1000 and 1000, seed=2001
+im02: digits=10000 and 10000, seed=2002
+im03: digits=100000 and 100000, seed=2003
+im04: digits=1000000 and 1000000, seed=2004
+im05: digits=1000000 and 10, seed=2005
+im06: digits=100000 and 100000, seed=2006
+im07: digits=99999 and 99999, seed=2007
+im08: digits=1000000 and 1000000, seed=2008
+im09: digits=1 and 1000000, seed=2009
+im10: digits=101 and 101, seed=2010

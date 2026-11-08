@@ -1,0 +1,84 @@
+PSEUDOCODE: Divide-and-Conquer MIN-MAX
+
+GLOBAL:
+    comparisons <- 0
+
+STRUCTURE Result:
+    max
+    min
+
+
+FUNCTION MinMax(A, low, high) RETURNS Result
+------------------------------------------------
+    // Base case 1: one element
+    IF low = high THEN
+        RETURN (max = A[low], min = A[low])
+    END IF
+
+    // Base case 2: two elements
+    IF high = low + 1 THEN
+        comparisons <- comparisons + 1        
+        IF A[high] < A[low] THEN
+            RETURN (max = A[low], min = A[high])
+        ELSE
+            RETURN (max = A[high], min = A[low])
+        END IF
+    END IF
+
+    // Divide
+    mid <- low + (high - low) / 2             
+
+    // Conquer
+    left  <- MinMax(A, low, mid)
+    right <- MinMax(A, mid + 1, high)
+
+    // Combine (2 comparisons per merge)
+    comparisons <- comparisons + 1
+    IF right.max > left.max THEN
+        overallMax <- right.max
+    ELSE
+        overallMax <- left.max
+    END IF
+
+    comparisons <- comparisons + 1
+    IF left.min < right.min THEN
+        overallMin <- left.min
+    ELSE
+        overallMin <- right.min
+    END IF
+
+    RETURN (max = overallMax, min = overallMin)
+END FUNCTION
+
+
+MAIN PROGRAM
+------------------------------------------------
+    READ n                                  
+
+    CREATE array A of size n
+    SEED random generator (mt19937_64) with 54432
+    FOR i <- 0 TO n - 1 DO
+        A[i] <- random integer in [-1,000,000,000 , 1,000,000,000]
+    END FOR
+
+    startTime <- current time
+    answer    <- MinMax(A, 0, n - 1)
+    stopTime  <- current time
+
+    elapsed <- (stopTime - startTime) in milliseconds
+
+    PRINT "Input size: ", n
+    PRINT "Random seed: 54432"
+    PRINT "Min: ", answer.min
+    PRINT "Max: ", answer.max
+    PRINT "Number of comparisons: ", comparisons
+    PRINT "Execution time: ", elapsed, " ms"
+END
+
+
+ANALYSIS
+------------------------------------------------
+Recurrence:   T(n) = 2T(n/2) + 2,   T(2) = 1
+Solution:     T(n) = 3n/2 - 2   comparisons  (for n a power of 2)
+Time:         Theta(n)
+Space:        O(log n) recursion stack
