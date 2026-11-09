@@ -1,7 +1,0 @@
--) 2 folders: Project and UI-interface
--) Project folder includes Q2) and Q3) work
--) generator.py creates input file data for closest pair (cp01 to cp10) and Karatsuba (im01 to im10) problem with the specifications mentioned in project proposal
--) Closetpp.cpp and Karatsuba.cpp implements the required algorithms
--) run_all.py runs both algos on both input sets and stores the results in a .csv file
-
-What Rayyan has to do is mentioned in Q4) create a nice user interface which is interactive and also shows working of algorithm. Claude will handle it just take care that any thing is not broken.
