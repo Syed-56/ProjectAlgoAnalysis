@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><title>CS2009 Algorithm Visualizer</title>
+<html lang="en"><head><meta charset="utf-8"><title>DAA Algorithm Visualizer</title>
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
 :root{--bg:#0f1420;--card:#182034;--ink:#e8ecf5;--mut:#8b96b0;--acc:#5ea1ff;--ok:#43d19e;--hot:#ff6b6b;--warn:#ffc857}
@@ -48,7 +48,7 @@ const $=id=>document.getElementById(id);
 let data=null,frames=[],pos=0,timer=null,kind='';
 const LIM=200;
 
-/* ---------- file loading ---------- */
+/*  file loading  */
 const drop=$('drop'),fin=$('f');
 drop.onclick=()=>fin.click();
 drop.ondragover=e=>{e.preventDefault();drop.classList.add('on')};
@@ -79,7 +79,7 @@ function process(){
 const fmt=ms=>ms<1000?ms.toFixed(2)+' ms':(ms/1000).toFixed(3)+' s';
 const stats=o=>$('stats').innerHTML=Object.entries(o).map(([k,v])=>`<div>${k}<b>${v}</b></div>`).join('');
 
-/* ---------- own merge sort on index array (no built-in sort) ---------- */
+/*  own merge sort on index array (no built-in sort)  */
 function msortIdx(a,less){
   const n=a.length,t=new Int32Array(n);let src=a,dst=t;
   for(let w=1;w<n;w*=2){
@@ -93,7 +93,7 @@ function msortIdx(a,less){
   if(src!==a)a.set(src);
 }
 
-/* ---------- Closest pair (Kleinberg 5.4) ---------- */
+/*  Closest pair (Kleinberg 5.4)  */
 function closestPair(X,Y,rec){
   const n=X.length,idx=new Int32Array(n);for(let i=0;i<n;i++)idx[i]=i;
   msortIdx(idx,(p,q)=>X[p]<X[q]||(X[p]===X[q]&&Y[p]<Y[q]));
@@ -155,7 +155,7 @@ function drawCP(){
   c.fillStyle='#8b96b0';c.font='12px sans-serif';c.fillText('blue = current subproblem · red dashed = dividing line · yellow = strip · green = best pair',10,16);
 }
 
-/* ---------- Karatsuba ---------- */
+/*  Karatsuba  */
 const B=4,BASE=10000,CUT=32;
 const toL=s=>{const a=[];for(let i=s.length;i>0;i-=B)a.push(+s.slice(Math.max(0,i-B),i));return a};
 const trim=a=>{let n=a.length;while(n>1&&a[n-1]===0)n--;a.length=n;return a};
@@ -222,7 +222,7 @@ function runIM(){
   }else{$('viz').classList.add('hide')}
 }
 
-/* ---------- player ---------- */
+/*  player  */
 function showViz(){$('viz').classList.remove('hide');pos=0;
   $('log').innerHTML=frames.map((f,i)=>`<div id="l${i}">${(i+1)}. ${f.msg.replace(/</g,'&lt;')}</div>`).join('');
   $('cv').classList.remove('hide');render()}
